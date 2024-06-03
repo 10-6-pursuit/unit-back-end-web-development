@@ -21,7 +21,7 @@ The difference between a library and a framework is that it tends to be un-opini
 
 ## Creating an npm project
 
-If you would like to code along, you may begin by creating a top-level folder and setting up a `.gitignore` file.
+Code along! You may begin by creating a top-level folder and setting up a `.gitignore` file.
 
 - `mkdir my-npm-project`
 - `cd my-npm-project`
