@@ -307,6 +307,10 @@ Another common matcher is the `.toEqual()` matcher. This matcher tests if the va
 For a list of the most common test matchers, you can always check the Jest documentation.
 
 - [Jest Using Matchers](https://jestjs.io/docs/using-matchers)
+  
+## TDD
+
+We'll touch more on this in a future lesson but the most common practice with testing is Test Driven Development or TDD. In TDD a developer would write a test before writing a function, fail the test, write the code to pass the test, and then continue to write more tests to make the code fail and write solutions to make them pass
 
 ## Coverage tool
 
