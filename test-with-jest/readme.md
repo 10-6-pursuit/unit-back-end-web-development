@@ -84,7 +84,7 @@ Once you've created your test files, you will need to connect the two files by e
 ```javascript
 // src/calculator.js
 function sum(a, b) {
-  return a + b;
+  
 }
 ```
 
