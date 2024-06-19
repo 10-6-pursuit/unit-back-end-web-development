@@ -185,12 +185,12 @@ Remember, you need to leave your server running. To open a new Terminal tab, you
 
 ```js
 module.exports = [
-  "MistyRose",
-  "Coral",
-  "Goldenrod",
-  "MediumAquamarine",
-  "DeepSkyBlue",
-  "Violet",
+  {id: 1, name: "MistyRose"},
+  {id: 2, name: "Coral"},
+  {id: 3, name: "Goldenrod"},
+  {id: 4, name: "MediumAquamarine"},
+  {id: 5, name: "DeepSkyBlue"},
+  {id: 6, name: "Violet"},
 ];
 ```
 
@@ -264,8 +264,9 @@ http://localhost:3333/colors/1
 
 ```js
 // ROUTES
-app.get("/colors/:index", (req, res) => {
-  res.send(colors[req.params.index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  res.send(colors.find((color) => color.id === id));
 });
 ```
 
