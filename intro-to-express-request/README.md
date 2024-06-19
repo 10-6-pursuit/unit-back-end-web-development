@@ -266,7 +266,7 @@ http://localhost:3333/colors/1
 // ROUTES
 app.get("/colors/:id", (req, res) => {
   const { id } = req.params;
-  res.send(colors.find((color) => color.id === id));
+  res.send(colors.find((color) => color.id === Number(id)));
 });
 ```
 
