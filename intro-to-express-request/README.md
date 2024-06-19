@@ -253,7 +253,7 @@ Whatever value the user types will then be sent with the request and is accessib
 
 ```js
 // ROUTES
-app.get("/colors/:index", (req, res) => {
+app.get("/colors/:id", (req, res) => {
   res.send(req.params);
 });
 ```
@@ -276,9 +276,9 @@ You can make this code easier to read by using object destructuring.
 // ROUTES
 
 // Show one color
-app.get("/colors/:index", (req, res) => {
-  const { index } = req.params;
-  res.send(colors[index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  res.send(colors.find((color) => color.id === Number(id)));
 });
 ```
 
@@ -288,11 +288,11 @@ You can only have one response for every request: This is a rule of the http pro
 
 ```js
 // A route with an error
-app.get("/colors/oops/:index", (req, res) => {
-  const { index } = req.params;
-  res.send(colors[index]);
+app.get("/colors/oops/:id", (req, res) => {
+  const { id } = req.params;
+  res.send(colors[id]);
   // error cannot send more than one response!
-  res.send("This is the index: " + index);
+  res.send("This is the id: " + id);
 });
 ```
 
@@ -300,12 +300,13 @@ You can, however, have multiple statements if you use `if` statements or other p
 
 ```js
 // Show one color, with error handling
-app.get("/colors/:index", (req, res) => {
-  const { index } = req.params;
-  if (colors[index]) {
-    res.send(colors[index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  const color = colors.find((color) => color.id === Number(id))
+  if (color) {
+    res.send(color);
   } else {
-    res.send("Cannot find any colors at this index: " + index);
+    res.send("Cannot find any colors with this id: " + is);
   }
 });
 ```
@@ -338,12 +339,13 @@ Here is a code example, building on the app you have so far:
 
 ```javascript
 // Show one color
-app.get("/colors/:index", (req, res) => {
-  const { index } = req.params;
-  if (colors[index]) {
-    res.send(colors[index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  const color = colors.find((color) => color.id === Number(id))
+  if (color) {
+    res.send(color);
   } else {
-    res.send("Cannot find any colors at this index: " + index);
+    res.send("Cannot find any colors with this id: " + is);
   }
 });
 
@@ -373,12 +375,13 @@ app.get("/colors/cool", (req, res) => {
 });
 
 // Show one color
-app.get("/colors/:index", (req, res) => {
-  const { index } = req.params;
-  if (colors[index]) {
-    res.send(colors[index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  const color = colors.find((color) => color.id === Number(id))
+  if (color) {
+    res.send(color);
   } else {
-    res.send("cannot find anything at this index: " + index);
+    res.send("Cannot find any colors with this id: " + is);
   }
 });
 ```
@@ -469,10 +472,12 @@ app.get("/colors", (req, res) => {
 
 // Route with an error
 app.get("/colors/oops/:index", (req, res) => {
-  const { index } = req.params;
-  res.send(colors[index]);
+  const { id } = req.params;
+  const color = colors.find((color) => color.id === Number(id))
+  res.send(color);
   // error cannot send more than one response!
-  res.send("this is the index: " + index);
+  res.send("this is the id: " + id);
+
 });
 
 // Place the route in the correct order
@@ -488,12 +493,13 @@ app.get("/colors/cool", (req, res) => {
 });
 
 // Dynamic route for one color with error handling
-app.get("/colors/:index", (req, res) => {
-  const { index } = req.params;
-  if (colors[index]) {
-    res.send(colors[index]);
+app.get("/colors/:id", (req, res) => {
+  const { id } = req.params;
+  const color = colors.find((color) => color.id === Number(id))
+  if (color) {
+    res.send(color);
   } else {
-    res.send("Cannot find any colors at this index: " + index);
+    res.send("Cannot find any colors with this id: " + is);
   }
 });
 
