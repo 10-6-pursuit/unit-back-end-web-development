@@ -85,7 +85,7 @@ In terms of code, you will have a folder called `models` and a folder called `co
 
 ## Views
 
-Views are the front-end component and what the client sees and interacts with. For this application, you will only be sending data and later, build a separate application to create the views.
+Views are the front-end component and what the client sees and interacts with. For this application, you will only be sending data and later, build a separate application to create the views. We use React for our front-end application.
 
 ## Models
 
