@@ -80,9 +80,10 @@ To build a back-end Express app that adheres to RESTful routes, there are five b
 
 ## Show
 
+> **Note**: To code along, go to the [following link](https://github.com/10-6-pursuit/express-request-lesson), clone, and fork, or pull if you already have it on your computer
+
 You've already learned about the index route, which shows a list of items. The show route, in contrast, will show one item. Typically, an index route has limited information about the items on display (for example, it would display a name, a price, and an image), and a show route would show many more details like what sizes and colors are available, reviews, and more.
 
-In this example, the show route uses the index position of the array. When you connect a database, this value will be replaced with a unique id.
 
 | Action |     URL     | HTTP Verb |   CRUD   |               Description               |
 | :----: | :---------: | :-------: | :------: | :-------------------------------------: |
@@ -90,9 +91,9 @@ In this example, the show route uses the index position of the array. When you c
 
 ```js
 // SHOW
-colors.get("/:arrayIndex", (req, res) => {
-  const { arrayIndex } = req.params;
-  res.json(colorsArray[arrayIndex]);
+colors.get("/:id", (req, res) => {
+  const { id } = req.params;
+  res.json(colorsArray.find((color) => color.id === Number(id)));
 });
 ```
 
@@ -100,23 +101,24 @@ You can improve the user experience by adding some error handling.
 
 ```js
 // SHOW
-colors.get("/:arrayIndex", (req, res) => {
-  const { arrayIndex } = req.params;
-  if (colorsArray[arrayIndex]) {
-    res.json(colorsArray[arrayIndex]);
+colors.get("/:id", (req, res) => {
+  const { id } = req.params;
+  const color = colorsArray.find((color) => color.id === Number(id));
+  if (color) {
+    res.send(color);
   } else {
-    res.status(404).json({ error: "Not Found" });
+    res.send("Cannot find any colors with this id: " + id);
   }
 });
 ```
 
 What is the URL to access this route?
 
-http://localhost:3333/colors/0
+http://localhost:3333/colors/1
 
 or
 
-http://localhost:3333/colors/1
+http://localhost:3333/colors/2
 
 etc.
 
@@ -251,21 +253,6 @@ You should now be able to add a new color object using the following cURL comman
 
 - `curl -H "Content-Type: application/json" -X POST -d '{"name":"blanchedalmond"}' http://localhost:3333/colors`
 
-You now have a new small issue: this new data not a simple string, unlike your model. Take a moment to update your model in `/models/color.js` to be an array of objects:
-
-```js
-// /models/color.js
-module.exports = [
-  { name: "MistyRose" },
-  { name: "Coral" },
-  { name: "Goldenrod" },
-  { name: "MediumAquamarine" },
-  { name: "DeepSkyBlue" },
-  { name: "Violet" },
-];
-```
-
-Now your old and new data will all be in the same format.
 
 > **Note**: Test what happens when you move the middleware below the routes. What happens? Why does this happen? Testing this to learn the behavior is essential because it is a common bug. Understanding what is happening and why will improve your debugging skills.
 
@@ -412,8 +399,6 @@ Success:
 - `curl -H "Content-Type: application/json" -X POST -d '{"name":"lemonchiffon"}' http://localhost:3333/colors\?apikey\=4321`
 
 ## Reference app
-
-See the full build on GitHub [Pre-reading-express-demo branch: middleware](https://github.com/pursuit-curriculum-resources/pre-reading-express-demo/tree/middleware)
 
 <details><summary>Mini-Bonus: More modern cURL command for sending a JSON post request:</summary>
 
