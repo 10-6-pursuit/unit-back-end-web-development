@@ -57,7 +57,7 @@ How would you create the routes? Here are some examples. Think about the followi
 
 Today we'll build the `show` and `create` routes. Note we've already made the `index` route.
 
-- Return to your `bookmarks` app. (If your app is not working, you may clone down [the previous complete build and work from there](https://github.com/pursuit-curriculum-resources/bookmarks-express-demo)).
+- Return to your `bookmarks` app. (If your app is not working, you may clone down [the previous complete build and work from there]([https://github.com/pursuit-curriculum-resources/bookmarks-express-demo](https://github.com/10-6-pursuit/bookmarks-express-demo))).
 
 - Make sure you are on the same directory level as your `package.json` (`ls` to check) to start your app.
 
