@@ -27,7 +27,6 @@ By the end of this lesson, you should be able to:
 
 ## Create
 
-![Create bookmark](../assets/postman-create.png)
 
 - Why do you need to update the option to POST?
 
@@ -153,7 +152,6 @@ bookmarks.put("/:arrayIndex", validateURL, async (req, res) => {
 
 An easy thing to test is to add many exclamation points at the end of the `name`.
 
-![Postman Update](../assets/postman-update.png)
 
 ## Resources
 
