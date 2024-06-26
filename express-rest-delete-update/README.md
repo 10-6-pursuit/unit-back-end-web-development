@@ -36,7 +36,7 @@ First, start by testing the three routes you've built:
 ![Get all colors](./assets/postman-index.png)
 
 - Set the option to `GET`.
-- Enter the URL for your colors URL for the index (e.g., http://localhost:3003/colors).
+- Enter the URL for your colors URL for the index (e.g., http://localhost:3333/colors).
 - Press `SEND`.
 
 Below, you should see the response.
@@ -44,7 +44,7 @@ Below, you should see the response.
 ### Show One
 
 - Set the option to `GET`.
-- Enter the URL for your colors URL for one color (e.g., http://localhost:3003/colors/1).
+- Enter the URL for your colors URL for one color (e.g., http://localhost:3333/colors/1).
 - Press `SEND`.
 
 ### Create
@@ -52,7 +52,7 @@ Below, you should see the response.
 ![Create color](./assets/postman-create.png)
 
 - Update the option to `POST`.
-- Change the URL back to http://localhost:3003/colors.
+- Change the URL back to http://localhost:3333/colors.
 - Choose `body`.
 - Choose `raw`.
 - Select `JSON`.
@@ -76,19 +76,22 @@ Let's add delete functionality. Again, this functionality will only be available
 
 We will use the index position of the array item and splice out the deleted item, which will remove the item at that array position. Then, you will send the deleted color back.
 
+We will use the `filter` method to filter out the array by the `id` and .
+
 ```js
 // DELETE
-colors.delete("/:arrayIndex", (req, res) => {
-  const { arrayIndex } = req.params;
-  const deletedBookmark = colorsArray.splice(req.params.indexArray, 1);
-  res.status(200).json(deletedBookmark[0]);
+colors.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const deletedColorIndex = colorsArray.findIndex((color) => color.id === Number(id));
+  const deletedColor = colorsArray.splice(deletedColorIndex, 1);
+  res.status(200).json(deletedColor[0]);
 });
 ```
 
 #### TEST WITH POSTMAN
 
 - Update the option to `DELETE`.
-- Change the URL back to http://localhost:3003/colors/0
+- Change the URL back to http://localhost:3333/colors/0
 - Press `send`.
 
 You should see the updated colors array without the item that was in array position 0.
@@ -97,10 +100,11 @@ Add some error handling.
 
 ```js
 // DELETE
-colors.delete("/:indexArray", (req, res) => {
-  const { indexArray } = req.params;
-  if (colorsArray[indexArray]) {
-    const deletedColor = colorsArray.splice(indexArray, 1);
+colors.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const deletedColorIndex = colorsArray.findIndex((color) => color.id === Number(id));
+  if (deletedColorIndex) {
+    const deletedColor = colorsArray.splice(deletedColorIndex, 1);
     res.status(200).json(deletedColor[0]);
   } else {
     res.status(404).json({ error: "Not Found" });
@@ -112,10 +116,11 @@ You can instead, choose to redirect after successful delete:
 
 ```js
 // DELETE
-colors.delete("/:indexArray", (req, res) => {
-  const { indexArray } = req.params;
-  if (colorsArray[indexArray]) {
-    colorsArray.splice(indexArray, 1);
+colors.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const deletedColorIndex = colorsArray.findIndex((color) => color.id === Number(id));
+  if (deletedColorIndex) {
+    const deletedColor = colorsArray.splice(deletedColorIndex, 1);
     res.redirect("/colors");
   } else {
     res.status(404).json({ error: "Not Found" });
@@ -133,10 +138,11 @@ You will take the array position of the item you want to update. You will set th
 
 ```js
 // UPDATE
-colors.put("/:arrayIndex", (req, res) => {
-  const { arrayIndex } = req.params;
-  colorsArray[arrayIndex] = req.body;
-  res.status(200).json(colorsArray[arrayIndex]);
+colors.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const colorToUpdateIndex = colorsArray.findIndex((color) => color.id === Number(id));
+  colorsArray[colorToUpdateIndex] = req.body;
+  res.status(200).json(colorsArray[colorToUpdateIndex]);
 });
 ```
 
@@ -144,17 +150,18 @@ You can reuse the middleware functionality to check that the updated value has a
 
 ```js
 // UPDATE
-colors.put("/:arrayIndex", checkForColorKey, (req, res) => {
-  const { arrayIndex } = req.params;
-  colorsArray[arrayIndex] = req.body;
-  res.status(200).json(colorsArray[arrayIndex]);
+colors.put("/:id", checkForColorKey, (req, res) => {
+  const { id } = req.params;
+  const colorToUpdateIndex = colorsArray.findIndex((color) => color.id === Number(id));
+  colorsArray[colorToUpdateIndex] = req.body;
+  res.status(200).json(colorsArray[colorToUpdateIndex]);
 });
 ```
 
 #### TEST WITH POSTMAN
 
 - Update the option to `PUT`.
-- http://localhost:3003/colors/0
+- http://localhost:3333/colors/0
 - Choose `body`.
 - Choose `raw`.
 - Select `JSON`.
