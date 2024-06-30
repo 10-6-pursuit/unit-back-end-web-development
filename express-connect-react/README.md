@@ -237,13 +237,13 @@ You would build a link to each item's show route on the index page.
 
 Then would use `useParams` from react-router-dom. This will allow you to access and use the URL parameters of the view to get the data for the specific color.
 
-Imagine you click on the color `cornsilk`, which has an array position of 2. The URL would be coded to be dynamic `/colors/{index}`. When the link is generated, it will be `/colors/2`. You will use React Router's `Link` component to navigate to the show view.
+Imagine you click on the color `cornsilk`, which has an array position of 2. The URL would be coded to be dynamic `/colors/{id}`. When the link is generated, it will be `/colors/2`. You will use React Router's `Link` component to navigate to the show view.
 
 ```js
-<Link to={`/colors/${index}`}>{color.name}</Link>
+<Link to={`/colors/${id}`}>{color.name}</Link>
 ```
 
-The fetch request for the show view will be similar to the index request. However, you'll add an error message if the particular color cannot be found. It will go to `/not-found`, an invalid index position that will trigger the 404 view. It still could use even better UI/UX. As a challenge during lab, you can work on making this an even more excellent experience.
+The fetch request for the show view will be similar to the index request. However, you'll add an error message if the particular color cannot be found. It will go to `/not-found`, an invalid id that will trigger the 404 view. It still could use even better UI/UX. As a challenge during lab, you can work on making this an even more excellent experience.
 
 > **Note**: A promise is a function that allows you to _WAIT_ for a response and _THEN_ do something. The .`then()` function takes a callback, and within that callback, you can write code that should run AFTER the first function has been fulfilled (usually by returning a value).
 
@@ -253,7 +253,7 @@ The fetch request for the show view will be similar to the index request. Howeve
 // src/Components/ColorDetails.js
 // On page load, load color details
 useEffect(() => {
-  fetch(`${API}/colors/${index}`)
+  fetch(`${API}/colors/${id}`)
     .then((response) => {
       return response.json();
     })
@@ -263,7 +263,7 @@ useEffect(() => {
     .catch(() => {
       navigate("/not-found");
     });
-}, [index, navigate]);
+}, [id, navigate]);
 ```
 
 Notice that this view also has three buttons: back, edit, and delete. You'll build-out edit and delete shortly.
@@ -300,7 +300,7 @@ Put it all together:
 ```js
 // src/Components/ColorNewForm.jsx
 // Add a color, return to the index view
-const addBookmark = () => {
+const addColor = () => {
   fetch(`${API}/colors`, {
     method: "POST",
     body: JSON.stringify(color),
@@ -314,10 +314,10 @@ const addBookmark = () => {
     .catch((error) => console.error("catch", error));
 };
 
-// Make sure to call addBookmark in handleSubmit
+// Make sure to call addColor in handleSubmit
 const handleSubmit = (event) => {
   event.preventDefault();
-  addBookmark();
+  addColor();
 };
 ```
 
@@ -333,7 +333,7 @@ Add the fetch request to update a color:
 // src/Components/ColorEditForm.jsx
 // Update a color. Redirect to show view
 const updateColor = () => {
-  fetch(`${API}/colors/${index}`, {
+  fetch(`${API}/colors/${id}`, {
     method: "PUT",
     body: JSON.stringify(color),
     headers: {
@@ -341,7 +341,7 @@ const updateColor = () => {
     },
   })
     .then(() => {
-      navigate(`/colors/${index}`);
+      navigate(`/colors/${id}`);
     })
     .catch((error) => console.error("catch", error));
 };
@@ -358,7 +358,7 @@ You can put the delete button in the Show view.
 ```js
 // src/Components/ColorDetails.jsx
 const handleDelete = () => {
-  fetch(`${API}/colors/${index}`, { method: "DELETE" })
+  fetch(`${API}/colors/${id}`, { method: "DELETE" })
     .then(() => {
       navigate(`/colors`);
     })
