@@ -15,7 +15,7 @@ By the end of this lesson, you should be able to:
 
 It's unusual to have just one table in a business application. Typically, there are many tables to represent data in a meaningful way.
 
-Let's imagine you are designing an application for a new boutique travel travel boutique, where guests will get to work with an agent to book experiences at unique hotels not part of any franchises. What kind of data would you need?
+Let's imagine you are designing an application for a new travel boutique, where guests will get to work with an agent to book experiences at unique hotels not part of any franchises. What kind of data would you need?
 
 - Hotel
   - name - string
