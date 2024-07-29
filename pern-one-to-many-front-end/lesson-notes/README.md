@@ -8,7 +8,7 @@ Make sure all your routes work as expected. It does not matter how amazing your 
 
 ## Getting Started
 
-- `git clone https://github.com/pursuit-curriculum-resources/starter-pern-crud`
+- `git clone https://github.com/pursuit-curriculum-resources/starter-pern-crud.git`
 - `cd starter-pern-crud`
 - Checkout a new branch: `git checkout -b one-to-many`
 - Pull in the `one-to-many` branch - `git pull origin starter-one-to-many`
